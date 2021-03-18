@@ -1,6 +1,6 @@
 services:
-    _defaults:
-        public: true
+    #_defaults:
+        #public: true
         #autowire: true
         #autoconfigure: true
 
@@ -100,25 +100,37 @@ services:
         tags: [ 'controller.service_arguments']
 
     Studit\H5PBundle\Entity\EventRepository:
-        autowire: true
-        tags: ['doctrine.repository_service']
+        class: Studit\H5PBundle\Entity\EventRepository
+        parent: oro_entity.abstract_repository
+        arguments:
+            - 'Studit\H5PBundle\Entity\Event'
 
     Studit\H5PBundle\Entity\LibraryRepository:
-        autowire: true
-        tags: ['doctrine.repository_service']
+        class: Studit\H5PBundle\Entity\LibraryRepository
+        parent: oro_entity.abstract_repository
+        arguments:
+            - 'Studit\H5PBundle\Entity\Library'
 
     Studit\H5PBundle\Entity\LibrariesLanguagesRepository:
-        autowire: true
-        tags: ['doctrine.repository_service']
+        class: Studit\H5PBundle\Entity\LibrariesLanguagesRepository
+        parent: oro_entity.abstract_repository
+        arguments:
+            - 'Studit\H5PBundle\Entity\LibrariesLanguages'
 
     Studit\H5PBundle\Entity\LibraryLibrariesRepository:
-        autowire: true
-        tags: ['doctrine.repository_service']
+        class: Studit\H5PBundle\Entity\LibraryLibrariesRepository
+        parent: oro_entity.abstract_repository
+        arguments:
+            - 'Studit\H5PBundle\Entity\LibraryLibraries'
 
     Studit\H5PBundle\Entity\ContentRepository:
-        autowire: true
-        tags: ['doctrine.repository_service']
+        class: Studit\H5PBundle\Entity\ContentRepository
+        parent: oro_entity.abstract_repository
+        arguments:
+            - 'Studit\H5PBundle\Entity\Content'
 
     Studit\H5PBundle\Entity\OptionRepository:
-        autowire: true
-        tags: ['doctrine.repository_service']
+        class: Studit\H5PBundle\Entity\OptionRepository
+        parent: oro_entity.abstract_repository
+        arguments:
+            - 'Studit\H5PBundle\Entity\Option'

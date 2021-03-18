@@ -13,11 +13,6 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class LibrariesLanguagesRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
-    {
-        parent::__construct($registry, LibrariesLanguages::class);
-    }
-
     public function findForLibrary($machineName, $majorVersion, $minorVersion, $languageCode)
     {
         $qb = $this->createQueryBuilder('ll')

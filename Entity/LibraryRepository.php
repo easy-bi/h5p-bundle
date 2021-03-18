@@ -17,11 +17,6 @@ use Doctrine\Persistence\ManagerRegistry;
 
 class LibraryRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
-    {
-        parent::__construct($registry, Library::class);
-    }
-
     public function countContentLibrary($libraryId)
     {
         $qb = $this->createQueryBuilder('l')

@@ -15,8 +15,5 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class OptionRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
-    {
-        parent::__construct($registry, Option::class);
-    }
+
 }
