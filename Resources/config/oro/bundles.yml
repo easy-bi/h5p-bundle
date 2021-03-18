@@ -1,0 +1,2 @@
+bundles:
+  - { name: Studit\H5PBundle\StuditH5PBundle, priority: 380 }
