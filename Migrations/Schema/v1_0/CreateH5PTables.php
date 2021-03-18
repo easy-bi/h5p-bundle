@@ -104,12 +104,12 @@ class CreateH5PTables implements Migration
     {
         $table = $schema->createTable('h5p_counters');
 
-        $table->addColumn('id', 'integer', ['autoincrement' => true]);
+        $table->addColumn('type', 'string', ['length' => 63]);
         $table->addColumn('library_name', 'string', ['length' => 127]);
         $table->addColumn('library_version', 'string', ['length' => 31]);
         $table->addColumn('num', 'integer');
 
-        $table->setPrimaryKey(['id']);
+        $table->setPrimaryKey(['type']);
     }
 
     /**

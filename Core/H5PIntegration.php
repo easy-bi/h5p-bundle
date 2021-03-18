@@ -294,7 +294,7 @@ class H5PIntegration
     }
     private function getH5PAssetUrl()
     {
-        return $this->assetsPaths->getUrl($this->options->getH5PAssetPath());
+        return $this->options->getH5PAssetPath();
     }
     
     /**
