@@ -3,13 +3,13 @@
 
 namespace Studit\H5PBundle\Entity;
 
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\EntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * EventRepository
  */
-class EventRepository extends ServiceEntityRepository
+class EventRepository extends EntityRepository
 {
     public function findRecentlyUsedLibraries($userId)
     {

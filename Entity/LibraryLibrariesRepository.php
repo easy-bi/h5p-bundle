@@ -3,13 +3,13 @@
 
 namespace Studit\H5PBundle\Entity;
 
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\EntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * LibraryLibrariesRepository
  */
-class LibraryLibrariesRepository extends ServiceEntityRepository
+class LibraryLibrariesRepository extends EntityRepository
 {
     public function countLibraries($libraryId)
     {

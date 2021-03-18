@@ -4,14 +4,14 @@
 namespace Studit\H5PBundle\Entity;
 
 
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\NoResultException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * LibrariesLanguagesRepository
  */
-class LibrariesLanguagesRepository extends ServiceEntityRepository
+class LibrariesLanguagesRepository extends EntityRepository
 {
     public function findForLibrary($machineName, $majorVersion, $minorVersion, $languageCode)
     {

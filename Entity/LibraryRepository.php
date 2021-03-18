@@ -3,7 +3,7 @@
 
 namespace Studit\H5PBundle\Entity;
 
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\NoResultException;
 use Doctrine\Persistence\ManagerRegistry;
@@ -15,7 +15,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * repository methods below.
  */
 
-class LibraryRepository extends ServiceEntityRepository
+class LibraryRepository extends EntityRepository
 {
     public function countContentLibrary($libraryId)
     {
