@@ -5,6 +5,7 @@ services:
         #autoconfigure: true
 
     studit_h5p.options:
+        public: true
         class: Studit\H5PBundle\Core\H5POptions
         arguments: [~, '%kernel.project_dir%', '@doctrine.orm.entity_manager']
     Studit\H5PBundle\Core\H5POptions: '@studit_h5p.options'

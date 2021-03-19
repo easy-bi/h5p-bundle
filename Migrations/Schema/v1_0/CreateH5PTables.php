@@ -41,7 +41,7 @@ class CreateH5PTables implements Migration
         $table->addColumn('value', 'text');
         $table->addColumn('type', 'string', ['length' => 255]);
 
-        $table->setPrimaryKey(['name']);
+        $table->addIndex(['name']);
     }
 
     /**
@@ -112,7 +112,7 @@ class CreateH5PTables implements Migration
         $table->addColumn('preloaded', 'boolean', ['notnull' => false]);
         $table->addColumn('delete_on_content_change', 'boolean', ['notnull' => false]);
 
-        $table->setPrimaryKey(['user_id']);
+        $table->addIndex(['user_id']);
         $table->addIndex(['content_main_id']);
         $table->addIndex(['sub_content_id']);
         $table->addIndex(['data_id']);
@@ -130,7 +130,7 @@ class CreateH5PTables implements Migration
         $table->addColumn('library_version', 'string', ['length' => 31]);
         $table->addColumn('num', 'integer');
 
-        $table->setPrimaryKey(['type']);
+        $table->addIndex(['type']);
         $table->addIndex(['library_name']);
         $table->addIndex(['library_version']);
     }
@@ -199,7 +199,7 @@ class CreateH5PTables implements Migration
         $table->addColumn('language_code', 'string', ['length' => 31]);
         $table->addColumn('language_json', 'text');
 
-        $table->setPrimaryKey(['library_id']);
+        $table->addIndex(['library_id']);
         $table->addIndex(['language_code']);
     }
 
@@ -243,7 +243,7 @@ class CreateH5PTables implements Migration
         $table->addColumn('required_library_id', 'integer');
         $table->addColumn('dependency_type', 'string', ['length' => 31]);
 
-        $table->setPrimaryKey(['library_id']);
+        $table->addIndex(['library_id']);
         $table->addIndex(['required_library_id']);
     }
 
@@ -261,6 +261,6 @@ class CreateH5PTables implements Migration
         $table->addColumn('points', 'integer', ['notnull' => false]);
         $table->addColumn('max_points', 'integer', ['notnull' => false]);
 
-        $table->setPrimaryKey(['content_main_id']);
+        $table->addIndex(['content_main_id']);
     }
 }
