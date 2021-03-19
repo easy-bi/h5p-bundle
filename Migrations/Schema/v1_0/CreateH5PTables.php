@@ -73,9 +73,9 @@ class CreateH5PTables implements Migration
         $table->addColumn('drop_css', 'string', ['length' => 1]);
         $table->addColumn('weight', 'integer');
 
-        $table->setPrimaryKey(['content_id']);
-        $table->setPrimaryKey(['library_id']);
-        $table->setPrimaryKey(['dependency_type']);
+        $table->addIndex(['content_id']);
+        $table->addIndex(['library_id']);
+        $table->addIndex(['dependency_type']);
     }
 
     /**
@@ -113,9 +113,9 @@ class CreateH5PTables implements Migration
         $table->addColumn('delete_on_content_change', 'boolean', ['notnull' => false]);
 
         $table->setPrimaryKey(['user_id']);
-        $table->setPrimaryKey(['content_main_id']);
-        $table->setPrimaryKey(['sub_content_id']);
-        $table->setPrimaryKey(['data_id']);
+        $table->addIndex(['content_main_id']);
+        $table->addIndex(['sub_content_id']);
+        $table->addIndex(['data_id']);
     }
 
     /**
@@ -131,8 +131,8 @@ class CreateH5PTables implements Migration
         $table->addColumn('num', 'integer');
 
         $table->setPrimaryKey(['type']);
-        $table->setPrimaryKey(['library_name']);
-        $table->setPrimaryKey(['library_version']);
+        $table->addIndex(['library_name']);
+        $table->addIndex(['library_version']);
     }
 
     /**
@@ -200,7 +200,7 @@ class CreateH5PTables implements Migration
         $table->addColumn('language_json', 'text');
 
         $table->setPrimaryKey(['library_id']);
-        $table->setPrimaryKey(['language_code']);
+        $table->addIndex(['language_code']);
     }
 
     /**
@@ -244,7 +244,7 @@ class CreateH5PTables implements Migration
         $table->addColumn('dependency_type', 'string', ['length' => 31]);
 
         $table->setPrimaryKey(['library_id']);
-        $table->setPrimaryKey(['required_library_id']);
+        $table->addIndex(['required_library_id']);
     }
 
     /**
