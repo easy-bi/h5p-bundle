@@ -92,6 +92,7 @@ class CreateH5PTables implements Migration
         $table->addColumn('maxscore', 'integer', ['notnull' => false]);
         $table->addColumn('opened', 'integer', ['notnull' => false]);
         $table->addColumn('finished', 'integer', ['notnull' => false]);
+        $table->addColumn('time', 'integer', ['notnull' => false]);
 
         $table->setPrimaryKey(['id']);
     }

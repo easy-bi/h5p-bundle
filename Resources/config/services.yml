@@ -11,66 +11,79 @@ services:
     Studit\H5PBundle\Core\H5POptions: '@studit_h5p.options'
 
     studit_h5p.editor_storage:
+        public: true
         class: Studit\H5PBundle\Editor\EditorStorage
         arguments: ['@studit_h5p.options', '@filesystem', '@security.authorization_checker', '@doctrine.orm.entity_manager', '@event_dispatcher']
     H5peditorStorage: '@studit_h5p.editor_storage'
 
     studit_h5p.interface:
+        public: true
         class: Studit\H5PBundle\Core\H5PSymfony
         arguments: ['@studit_h5p.options', '@studit_h5p.editor_storage','@security.token_storage', '@doctrine.orm.entity_manager', '@session', '@security.authorization_checker', '@event_dispatcher', '@router.default']
     Studit\H5PBundle\Core\H5PSymfony: '@studit_h5p.interface'
 
     studit_h5p.filestorage:
+        public: true
         class: Studit\H5PBundle\Service\H5PFileStorage
         arguments: ['@studit_h5p.options']
     Studit\H5PBundle\Service\H5PFileStorage: '@studit_h5p.filestorage'
 
     studit_h5p.core:
+        public: true
         class: H5PCore
         arguments: ['@studit_h5p.interface', '@studit_h5p.filestorage', ~, 'en' , true]
     H5PCore: '@studit_h5p.core'
 
     studit_h5p.editor_ajax:
+        public: true
         class: Studit\H5PBundle\Editor\EditorAjax
         arguments: ['@doctrine.orm.entity_manager', '@security.token_storage']
     Studit\H5PBundle\Editor\EditorAjax: '@studit_h5p.editor_ajax'
 
     studit_h5p.editor:
+        public: true
         class: H5peditor
         arguments: ['@studit_h5p.core', '@studit_h5p.editor_storage', '@studit_h5p.editor_ajax']
     H5peditor: '@studit_h5p.editor'
 
     studit_h5p.validator:
+        public: true
         class: H5PValidator
         arguments: ['@studit_h5p.interface', '@studit_h5p.core']
     H5PValidator: '@studit_h5p.validator'
 
     studit_h5p.storage:
+        public: true
         class: H5PStorage
         arguments: ['@studit_h5p.interface', '@studit_h5p.core']
     H5PStorage: '@studit_h5p.storage'
 
     studit_h5p.contentvalidator:
+        public: true
         class: H5PContentValidator
         arguments: ['@studit_h5p.interface', '@studit_h5p.core']
     H5PContentValidator: '@studit_h5p.contentvalidator'
 
     studit_h5p.export:
+        public: true
         class: H5PExport
         arguments: ['@studit_h5p.interface', '@studit_h5p.core']
     H5PExport: '@studit_h5p.export'
 
     studit_h5p.integration:
+        public: true
         class: Studit\H5PBundle\Core\H5PIntegration
         arguments: ['@studit_h5p.core', '@studit_h5p.options', '@security.token_storage', '@doctrine.orm.entity_manager', '@router', '@request_stack', '@assets.packages', '@studit_h5p.contentvalidator']
     Studit\H5PBundle\Core\H5PIntegration: '@studit_h5p.integration'
 
     studit_h5p.library_storage:
+        public: true
         class: Studit\H5PBundle\Editor\LibraryStorage
         arguments: ['@studit_h5p.core', '@studit_h5p.editor', '@doctrine.orm.entity_manager']
     Studit\H5PBundle\Editor\LibraryStorage: '@studit_h5p.library_storage'
 
     studit_h5p.twig.h5p_extension:
+        public: true
         class: Studit\H5PBundle\Twig\H5PExtension
         arguments: ['@studit_h5p.integration']
         tags:
@@ -78,6 +91,7 @@ services:
     Studit\H5PBundle\Twig\H5PExtension: '@studit_h5p.twig.h5p_extension'
 
     studit_h5p.result_storage:
+        public: true
         class: Studit\H5PBundle\Service\ResultService
         arguments: ['@service_container']
     Studit\H5PBundle\Service\ResultService: '@studit_h5p.result_storage'
