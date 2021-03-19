@@ -18,6 +18,7 @@ class CreateH5PTables implements Migration
     {
         self::addH5POptionTable($schema);
         self::addH5PContentTable($schema);
+        self::addH5PContentLibrariesTable($schema);
         self::addH5PContentResultTable($schema);
         self::addH5PContentUserDataTable($schema);
         self::addH5PCountersTable($schema);
@@ -62,6 +63,24 @@ class CreateH5PTables implements Migration
     /**
      * @param Schema $schema
      */
+    public static function addH5PContentLibrariesTable(Schema $schema): void
+    {
+        $table = $schema->createTable('h5p_content_libraries');
+
+        $table->addColumn('content_id', 'integer');
+        $table->addColumn('library_id', 'integer');
+        $table->addColumn('dependency_type', 'string', ['length' => 31]);
+        $table->addColumn('drop_css', 'string', ['length' => 1]);
+        $table->addColumn('weight', 'integer');
+
+        $table->setPrimaryKey(['content_id']);
+        $table->setPrimaryKey(['library_id']);
+        $table->setPrimaryKey(['dependency_type']);
+    }
+
+    /**
+     * @param Schema $schema
+     */
     public static function addH5PContentResultTable(Schema $schema): void
     {
         $table = $schema->createTable('h5p_content_result');
@@ -94,6 +113,9 @@ class CreateH5PTables implements Migration
         $table->addColumn('delete_on_content_change', 'boolean', ['notnull' => false]);
 
         $table->setPrimaryKey(['user_id']);
+        $table->setPrimaryKey(['content_main_id']);
+        $table->setPrimaryKey(['sub_content_id']);
+        $table->setPrimaryKey(['data_id']);
     }
 
     /**
@@ -109,6 +131,8 @@ class CreateH5PTables implements Migration
         $table->addColumn('num', 'integer');
 
         $table->setPrimaryKey(['type']);
+        $table->setPrimaryKey(['library_name']);
+        $table->setPrimaryKey(['library_version']);
     }
 
     /**
@@ -176,6 +200,7 @@ class CreateH5PTables implements Migration
         $table->addColumn('language_json', 'text');
 
         $table->setPrimaryKey(['library_id']);
+        $table->setPrimaryKey(['language_code']);
     }
 
     /**
@@ -219,6 +244,7 @@ class CreateH5PTables implements Migration
         $table->addColumn('dependency_type', 'string', ['length' => 31]);
 
         $table->setPrimaryKey(['library_id']);
+        $table->setPrimaryKey(['required_library_id']);
     }
 
     /**

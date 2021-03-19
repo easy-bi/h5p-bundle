@@ -23,8 +23,8 @@
             var h5peditor;
             var $editor = $('#h5p-editor');
             //change if bug name of your entity form here it H5_P
-            var $parameters = $('#h5_p_parameters');
-            var $library = $('#h5_p_library');
+            var $parameters = $('input[data-ftid="h5_p_parameters"]');
+            var $library = $('input[data-ftid="h5_p_library"]');
             var library = $library.val();
 
             if (h5peditor === undefined) {
