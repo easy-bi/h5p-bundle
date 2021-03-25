@@ -27,7 +27,7 @@ class Configuration implements ConfigurationInterface
         }
         $rootNode
             ->children()
-            ->scalarNode('storage_dir')->defaultValue("/")->end()
+            ->scalarNode('storage_dir')->defaultValue("/h5p")->end()
             ->scalarNode('web_dir')->defaultValue("public")->end()
             ->booleanNode('hub_is_enabled')->defaultTrue()->end()
             ->booleanNode('send_usage_statistics')->defaultTrue()->end()
