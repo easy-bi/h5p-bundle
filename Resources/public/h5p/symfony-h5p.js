@@ -42,6 +42,16 @@
                     }
                 }
             });
+
+            setTimeout(function(){
+                (function interval() {
+                    window.parent.postMessage({
+                        height: h5peditor.iframeWindow.innerHeight,
+                        location: window.location.href,
+                    }, "*");
+                    setTimeout(interval, 40);
+                })();
+            }, 1000);
         }
     };
 
