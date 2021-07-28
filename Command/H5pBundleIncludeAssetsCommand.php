@@ -36,11 +36,9 @@ class H5pBundleIncludeAssetsCommand extends Command
 
         $this->includeAssets($copy);
 
-        if($copy) {
-            copy($this->appKernel->getProjectDir()."/vendor/jorisdugue/h5p-bundle/public/h5p/h5p-editor/application.css",
-                $this->appKernel->getProjectDir()."/vendor/jorisdugue/h5p-bundle/Resources/public/h5p/h5p-editor/styles/css/application.css");
-        }
-
+        copy($this->appKernel->getProjectDir()."/vendor/jorisdugue/h5p-bundle/public/h5p/h5p-editor/application.css",
+            $this->appKernel->getProjectDir()."/public/bundles/studith5p/h5p/h5p-editor/styles/css/application.css");
+        
         return 0;
     }
 
