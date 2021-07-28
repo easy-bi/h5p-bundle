@@ -32,10 +32,15 @@ class H5pBundleIncludeAssetsCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $this->includeAssets($input->getOption('copy') ?? false);
+        $copy = $input->getOption('copy') ?? false;
 
-        copy($this->appKernel->getProjectDir()."/vendor/jorisdugue/h5p-bundle/public/h5p/h5p-editor/application.css",
-            $this->appKernel->getProjectDir()."/vendor/jorisdugue/h5p-bundle/Resources/public/h5p/h5p-editor/styles/css/application.css");
+        $this->includeAssets($copy);
+
+        if($copy) {
+            copy($this->appKernel->getProjectDir()."/vendor/jorisdugue/h5p-bundle/public/h5p/h5p-editor/application.css",
+                $this->appKernel->getProjectDir()."/vendor/jorisdugue/h5p-bundle/Resources/public/h5p/h5p-editor/styles/css/application.css");
+        }
+
         return 0;
     }
 
