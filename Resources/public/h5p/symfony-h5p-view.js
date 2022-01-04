@@ -11,5 +11,7 @@
                 })();
             }, 1000);
         }
+
+        H5PIntegration.saveFreq = true;
     });
 })(H5P.jQuery);
