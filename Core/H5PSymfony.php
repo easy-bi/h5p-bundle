@@ -1007,10 +1007,10 @@ class H5PSymfony implements \H5PFrameworkInterface
         $cmd = $this->manager->getClassMetadata($tableClassName);
         $connection = $this->manager->getConnection();
         $dbPlatform = $connection->getDatabasePlatform();
-        $connection->query('SET FOREIGN_KEY_CHECKS=0');
+        $connection->query("SET session_replication_role = 'replica';");
         $q = $dbPlatform->getTruncateTableSql($cmd->getTableName());
         $connection->executeUpdate($q);
-        $connection->query('SET FOREIGN_KEY_CHECKS=1');
+        $connection->query("SET session_replication_role = 'origin';");
     }
     /**
      * @inheritDoc
