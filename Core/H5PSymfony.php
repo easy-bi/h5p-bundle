@@ -1007,10 +1007,10 @@ class H5PSymfony implements \H5PFrameworkInterface
         $cmd = $this->manager->getClassMetadata($tableClassName);
         $connection = $this->manager->getConnection();
         $dbPlatform = $connection->getDatabasePlatform();
-        $connection->query("SET session_replication_role = 'replica';");
+        $connection->query("ALTER TABLE " . $cmd->getTableName() . " DISABLE TRIGGER ALL");
         $q = $dbPlatform->getTruncateTableSql($cmd->getTableName());
         $connection->executeUpdate($q);
-        $connection->query("SET session_replication_role = 'origin';");
+        $connection->query("ALTER TABLE " . $cmd->getTableName() . " ENABLE TRIGGER ALL");
     }
     /**
      * @inheritDoc
