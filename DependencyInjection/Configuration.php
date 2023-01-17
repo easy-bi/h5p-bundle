@@ -48,7 +48,7 @@ class Configuration implements ConfigurationInterface
             ->booleanNode(\H5PCore::DISPLAY_OPTION_COPYRIGHT)->defaultTrue()->end()
             ->integerNode('content_type_cache_updated_at')->defaultValue(0)->end()
             ->booleanNode('enable_lrs_content_types')->defaultFalse()->end()
-            ->booleanNode('use_permission')->defaultFalse()->end()
+            ->booleanNode('use_permission')->defaultTrue()->end()
             ->end();
         return $treeBuilder;
     }

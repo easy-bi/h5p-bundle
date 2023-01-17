@@ -22,6 +22,7 @@ use Studit\H5PBundle\Event\H5PEvents;
 use Studit\H5PBundle\Event\LibrarySemanticsEvent;
 use GuzzleHttp\Client;
 use H5PPermission;
+use RuntimeException;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpKernel\Kernel;
@@ -940,20 +941,13 @@ class H5PSymfony implements \H5PFrameworkInterface
      */
     public function hasPermission($permission, $content_id = NULL)
     {
-        if (!$this->options->getOption('use_permission')) return true;
+        //throw new RuntimeException($permission);
+
         switch ($permission) {
-            case \H5PPermission::DOWNLOAD_H5P:
-                return $content_id !== NULL && $this->authorizationChecker->isGranted('ROLE_H5P_DOWNLOAD_ALL');
-            case \H5PPermission::EMBED_H5P:
-                return $content_id !== NULL && $this->authorizationChecker->isGranted('ROLE_H5P_EMBED_ALL');
-            case \H5PPermission::CREATE_RESTRICTED:
-                return $this->authorizationChecker->isGranted('ROLE_H5P_CREATE_RESTRICTED_CONTENT_TYPES');
             case \H5PPermission::UPDATE_LIBRARIES:
-                return $this->authorizationChecker->isGranted('ROLE_H5P_UPDATE_LIBRARIES');
-            case \H5PPermission::INSTALL_RECOMMENDED:
-                return $this->authorizationChecker->isGranted('ROLE_H5P_INSTALL_RECOMMENDED_LIBRARIES');
-            case \H5PPermission::COPY_H5P:
-                return $content_id !== NULL && $this->authorizationChecker->isGranted('ROLE_H5P_COPY_ALL');
+                return true;
+            default:
+                return false;
         }
         return FALSE;
     }

@@ -103,6 +103,11 @@ services:
     Studit\H5PBundle\Command\H5pBundleCleanUpFilesCommand:
         tags:
             - { name: 'console.command', command: 'h5p-bundle:cleanup-files'}
+    Studit\H5PBundle\Command\H5pBundleInstallLibraries:
+        autowire: true
+        tags:
+            - { name: 'console.command', command: 'h5p-bundle:install-libraries' }
+
 
     Studit\H5PBundle\Controller\H5PController:
         autowire: true
@@ -149,3 +154,8 @@ services:
         parent: oro_entity.abstract_repository
         arguments:
             - 'Studit\H5PBundle\Entity\Option'
+
+    h5p.async.install_libraries:
+        class: Studit\H5PBundle\Async\IntallLibrariesProcessor
+        tags:
+            - { name: 'oro_message_queue.client.message_processor' }
