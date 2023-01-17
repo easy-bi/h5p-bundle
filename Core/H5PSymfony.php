@@ -376,10 +376,7 @@ class H5PSymfony implements \H5PFrameworkInterface
      */
     public function isPatchedLibrary($library)
     {
-        if ($this->getOption('dev_mode', FALSE)) {
-            return TRUE;
-        }
-        return $this->manager->getRepository('StuditH5PBundle:Library')->isPatched($library);
+        return true;
     }
 
 
