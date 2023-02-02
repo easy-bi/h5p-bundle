@@ -4,6 +4,8 @@ namespace Studit\H5PBundle\Command;
 
 use Doctrine\DBAL\Exception\TableNotFoundException;
 use Oro\Bundle\ConfigBundle\Config\ConfigManager;
+use Oro\Component\MessageQueue\Client\Message;
+use Oro\Component\MessageQueue\Client\MessagePriority;
 use Oro\Component\MessageQueue\Client\MessageProducerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -47,13 +49,15 @@ class H5pBundleInstallLibraries extends Command
         $libraries = glob($this->appKernel->getProjectDir() . "/vendor/jorisdugue/h5p-bundle/H5P/*.h5p");
 
         foreach($libraries as $library) {
-            $data = array(
+            $message = new Message([
                 "library" => $library,
                 "token" => \H5PCore::createToken('libraryupload'),
                 "url" => $this->getConfigValue('base_application_url', 'oro_ui') . "/h5p/ajax/library-upload/"
-            );
+            ]);
+            $message->setPriority(MessagePriority::LOW);
+            $message->setDelay(15);
 
-            $this->messageProducer->send(Topics::INSTALL_LIBRARIES, $data);
+            $this->messageProducer->send(Topics::INSTALL_LIBRARIES, $message);
         }
 
 
