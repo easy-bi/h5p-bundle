@@ -47,6 +47,7 @@ class H5pBundleInstallLibraries extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $libraries = glob($this->appKernel->getProjectDir() . "/vendor/jorisdugue/h5p-bundle/H5P/*.h5p");
+        $count = 0;
 
         foreach($libraries as $library) {
             $message = new Message([
@@ -55,9 +56,10 @@ class H5pBundleInstallLibraries extends Command
                 "url" => $this->getConfigValue('base_application_url', 'oro_ui') . "/h5p/ajax/library-upload/"
             ]);
             $message->setPriority(MessagePriority::LOW);
-            $message->setDelay(15);
+            $message->setDelay(10 + ($count + 5));
 
             $this->messageProducer->send(Topics::INSTALL_LIBRARIES, $message);
+            $count++;
         }
 
 
