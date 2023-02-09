@@ -3,16 +3,19 @@
 
 namespace Studit\H5PBundle\Controller;
 
+use Oro\Bundle\GaufretteBundle\FileManager;
 use Studit\H5PBundle\Core\H5POptions;
 use Studit\H5PBundle\Editor\LibraryStorage;
 use Studit\H5PBundle\Entity\Content;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Studit\H5PBundle\Core\H5PIntegration;
 use Studit\H5PBundle\Form\Type\H5PType;
+use Symfony\Component\Mime\MimeTypes;
 
 /**
  * @Route("/h5p/")
@@ -23,12 +26,17 @@ class H5PController extends AbstractController
     protected $h5PIntegrations;
     protected $libraryStorage;
 
+    /** @var FileManager $fileManager */
+    protected $fileManager;
+
     public function __construct(
         H5PIntegration $h5PIntegration,
-        LibraryStorage $libraryStorage
+        LibraryStorage $libraryStorage,
+        FileManager $fileManager
     ) {
         $this->h5PIntegrations = $h5PIntegration;
         $this->libraryStorage = $libraryStorage;
+        $this->fileManager = $fileManager;
     }
 
     /**
@@ -119,5 +127,35 @@ class H5PController extends AbstractController
             'slug' => 'interactive-content'
         ]);
         return $this->redirectToRoute('studit_h5p_h5p_list');
+    }
+
+    /**
+     * @Route("content/{contentId}/{fileType}/{fileName}")
+     * @param integer $contentId
+     * @param string $fileType
+     * @param string $fileName
+     */
+    public function getContentFile($contentId, $fileType, $fileName): Response
+    {
+        // We get the content as a binary string from S3
+        $contents = $this->fileManager->getFileContent('/content/' . $contentId . '/' . $fileType . '/' . $fileName, false);
+        $response = new Response();
+
+        // We save a temp file so we can get the mimetype
+        $tmpFilename = tempnam(sys_get_temp_dir(), 'guessMimeType_');
+        file_put_contents($tmpFilename, $contents);
+        $mimeTypes = new MimeTypes();
+        $guessedMimeType = $mimeTypes->guessMimeType($tmpFilename);
+
+        //Unlink the temp file
+        unlink($tmpFilename);
+
+        // Set the headers according to the file type
+        $response->headers->set('Content-type', $guessedMimeType );
+        $response->headers->set('Content-Disposition', 'inline; filename="' . $fileName . '";');
+        $response->headers->set('Content-length',  strlen($contents));
+        $response->sendHeaders();
+        $response->setContent( $contents );
+        return $response;
     }
 }
