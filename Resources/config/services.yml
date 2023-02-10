@@ -1,8 +1,8 @@
 services:
     #_defaults:
-        #public: true
-        #autowire: true
-        #autoconfigure: true
+    #public: true
+    #autowire: true
+    #autoconfigure: true
 
     studit_h5p.options:
         public: true
@@ -25,7 +25,7 @@ services:
     studit_h5p.filestorage:
         public: true
         class: Studit\H5PBundle\Service\H5PFileStorage
-        arguments: ['@studit_h5p.options']
+        arguments: ['@studit_h5p.options', '@h5p.vcr.file_manager']
     Studit\H5PBundle\Service\H5PFileStorage: '@studit_h5p.filestorage'
 
     studit_h5p.core:
@@ -112,6 +112,7 @@ services:
     Studit\H5PBundle\Controller\H5PController:
         autowire: true
         tags: [ 'controller.service_arguments']
+        arguments: [ '@studit_h5p.integration', '@studit_h5p.library_storage', '@h5p.vcr.file_manager' ]
     Studit\H5PBundle\Controller\H5PInteractionController:
         autowire: true
         tags: [ 'controller.service_arguments']
@@ -159,3 +160,9 @@ services:
         class: Studit\H5PBundle\Async\IntallLibrariesProcessor
         tags:
             - { name: 'oro_message_queue.client.message_processor' }
+
+    h5p.vcr.file_manager:
+        parent: oro_gaufrette.file_manager
+        public: true
+        arguments:
+            - 'h5p'
