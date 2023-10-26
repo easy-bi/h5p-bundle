@@ -21,7 +21,8 @@
         }
     ],
     "require": {
-        "php": "^7.2.5",
+        "php": "~8.2.0",
+        "oro/platform": "5.1.*",
         "doctrine/orm": "^2.7",
         "guzzlehttp/guzzle": "^7.2",
         "h5p/h5p-core": "^1.24",
